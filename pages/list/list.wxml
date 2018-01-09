@@ -2,27 +2,30 @@
 
   <!-- 左侧菜单 -->
   <view class="list-left-menu">
+
     <view wx:for="{{listData}}" wx:key="unique" class="{{index==activeIndex?'list-left-menu-box-selected':'list-left-menu-box-unselect'}}" data-index="{{index}}" bindtap='selectMenu'>
-      <view class="list-menu-name">{{item.kindName}}</view>
+      <view class="list-menu-name">{{ item.kindName }}</view>
     </view>
   </view>
+
 
   <!-- 右侧菜单 -->
   <scroll-view scroll-y="true" style='height:1070rpx;' bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
     <view class="content" id="a{{index}}" wx:for="{{listData}}" wx:key="unique">
-      <view class='list-tab'>{{item.kindName}}</view>
+      <view class='list-tab'> {{ item.kindName }} </view>
       <view class='content-list' wx:for="{{item.dishesList}}" wx:key="unique" wx:for-item="items" wx:for-index="indexs">
         <view class='list-image-box'>
           <image class="list-image" mode="widthFix" src='http://lorempixel.com/100/100/food'></image>
-          <!-- <image class="list-image" mode="widthFix" src='{{items.imgUrl}}'></image> -->
+          <!-- <image class="list-image" lazy-load="true"  mode="widthFix" src='{{items.imgUrl}}'></image> -->
         </view>
         <view class='issue-name'>
           <view>{{items.dishesName}}</view>
           <view style='margin-top:20rpx;color:#F05A86'>
-            ¥ {{items.price}}.00
+            ¥ {{items.price}}
             <view class="count-op">
-              <i class="iconfont icon-jian" data-index="{{index}}" bindtap="decNumber"></i>
-              0
+              <i wx:if="{{items.count}}" class="iconfont icon-jian"
+                data-index="{{indexs}}" data-type="{{index}}" bindtap="decCount"></i>
+              {{items.count}}
               <i class="iconfont icon-jiahao2fill" data-type="{{index}}" data-index="{{indexs}}" bindtap="selectInfo"></i>
             </view>
           </view>
@@ -42,7 +45,7 @@
         </i>
 
         <view class='gouwuche-price' wx:if="{{sumMonney==0}}">购物车是空的</view>
-        <view class='gouwuche-price' style='color:white;font-size:18px' wx:if="{{sumMonney!=0}}">¥ {{sumMonney}}.00</view>
+        <view class='gouwuche-price' style='color:white;font-size:18px' wx:if="{{sumMonney!=0}}">¥ {{sumMonney}}</view>
       </view>
     </view>
     <view class="submit-btn {{sumMonney!=0?'activity-color-bg':'' }}" bindtap='goBalance'>
@@ -103,10 +106,12 @@
       </view>
       <view style='width:50%;padding:10px;'>
         <view style='float:right'>
-          <label class='activity-color'>¥ {{item.sum}}.00</label>
-          <i class="iconfont icon-jian icon-li-circle" data-index="{{index}}" bindtap="decNumber"></i>
+          <label class='activity-color'>¥ {{item.sum}}</label>
+          <i class="iconfont icon-jian icon-li-circle"
+            data-type="{{item.type}}" data-index="{{item.index}}" data-cart-index="{{index}}" bindtap="decNumber"></i>
           {{item.number}}
-          <i class="iconfont icon-jiahao2fill activity-color font20" data-index="{{index}}" bindtap="addNumber"></i>
+          <i class="iconfont icon-jiahao2fill activity-color font20"
+            data-type="{{item.type}}" data-index="{{item.index}}" data-cart-index="{{index}}" bindtap="addNumber"></i>
         </view>
       </view>
     </view>

@@ -13,8 +13,24 @@ const formatTime = date => {
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
-}
+};
+
+// 下载指定地址的图片
+const downloadImg = (url, callBack) => {
+  console.log('downloadImg...');
+  wx.downloadFile({
+    url: url,
+    type: 'image',
+    success: function (res) {
+      callBack(res.tempFilePath);
+    },
+    fail: function (error) {
+      console.log(error)
+    }
+  });
+};
 
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  downloadImg: downloadImg
 }
