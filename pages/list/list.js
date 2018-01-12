@@ -95,12 +95,16 @@ Page({
             .map(item => item.tempFilePath)
             .do(element => console.log('subscribe tmpPath :', element))
             .subscribe(tmpPath => {
-              result[i].dishesList[j].imgUrl = tmpPath;
-              that.setData({
+              // result[i].dishesList[j].imgUrl = tmpPath;
+              let param = {};
+              let string = `listData[${i}].dishesList[${j}].imgUrl`;
+              param[string] = tmpPath;
+              // that.setData({
                 // listData[i].dishesList[j].imgUrl: tmpPath
                 // `listData[${i}].dishesList[${j}].imgUrl`: tmpPath
-                listData: result
-              });
+                // listData: result
+              // });
+              that.setData(param);
             });
         }
       }

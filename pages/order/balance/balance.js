@@ -43,7 +43,7 @@ Page({
         channelId: this.data.channelId,
         dishesId: this.data.cartList[i].id,
         dishesKindId: this.data.cartList[i].dishesKindId,
-        className: 'DishesC',
+        className: 'GoodsC',
         taste: this.data.cartList[i].detail,
         dishesCount: this.data.cartList[i].number,
         price: this.data.cartList[i].price,
