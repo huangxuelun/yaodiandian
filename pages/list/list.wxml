@@ -1,13 +1,11 @@
 <view>
 
-  <!-- 左侧菜单 -->
+  <!-- 左侧菜品类别菜单 -->
   <view class="list-left-menu">
-
     <view wx:for="{{listData}}" wx:key="unique" class="{{index==activeIndex?'list-left-menu-box-selected':'list-left-menu-box-unselect'}}" data-index="{{index}}" bindtap='selectMenu'>
       <view class="list-menu-name">{{ item.kindName }}</view>
     </view>
   </view>
-
 
   <!-- 右侧菜单 -->
   <scroll-view scroll-y="true" style='height:1070rpx;' bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
@@ -15,17 +13,17 @@
       <view class='list-tab'> {{ item.kindName }} </view>
       <view class='content-list' wx:for="{{item.dishesList}}" wx:key="unique" wx:for-item="items" wx:for-index="indexs">
         <view class='list-image-box'>
-          <image class="list-image" mode="widthFix" src='http://lorempixel.com/100/100/food'></image>
-          <!-- <image class="list-image" lazy-load="true"  mode="widthFix" src='{{items.imgUrl}}'></image> -->
+          <!-- <image class="list-image" mode="widthFix" src='http://lorempixel.com/100/100/food'></image> -->
+          <image class="list-image" lazy-load="true"  mode="widthFix" src='{{items.imgUrl}}'></image>
         </view>
         <view class='issue-name'>
-          <view>{{items.dishesName}}</view>
+          <view>{{ items.dishesName }}</view>
           <view style='margin-top:20rpx;color:#F05A86'>
-            ¥ {{items.price}}
+            ¥ {{ items.price }}
             <view class="count-op">
               <i wx:if="{{items.count}}" class="iconfont icon-jian"
                 data-index="{{indexs}}" data-type="{{index}}" bindtap="decCount"></i>
-              {{items.count}}
+              {{ items.count }}
               <i class="iconfont icon-jiahao2fill" data-type="{{index}}" data-index="{{indexs}}" bindtap="selectInfo"></i>
             </view>
           </view>
@@ -43,7 +41,6 @@
         <i class="iconfont icon-gouwuchefill gouwuche-icon {{sumMonney!=0?'activity-color':'' }}" bindtap="showCartList">
           <span class="number-msg" wx:if="{{cartList.length!=0}}">{{cupNumber}}</span>
         </i>
-
         <view class='gouwuche-price' wx:if="{{sumMonney==0}}">购物车是空的</view>
         <view class='gouwuche-price' style='color:white;font-size:18px' wx:if="{{sumMonney!=0}}">¥ {{sumMonney}}</view>
       </view>
@@ -58,7 +55,7 @@
 <view class="drawer_screen" bindtap="selectInfo" data-statu="close" wx:if="{{showModalStatus}}"></view>
 <view class="drawer_box_ad" wx:if="{{showModalStatus}}">
   <view class="drawer_content_ad">
-    <view style='font-size:16px;display:flex;justify-content:center;  '> {{listData[currentType].dishesList[currentIndex].dishesName}} </view>
+    <view style='font-size:16px;display:flex;justify-content:center;'> {{listData[currentType].dishesList[currentIndex].dishesName}} </view>
 <!--     <view class="select-line-nav">规格</view>
     <view style='display:flex'>
       <view class="select-tab {{index==sizeIndex?'select-active':''}}" wx:for="{{size}}" wx:key="unique" data-type='0' data-index='{{index}}' bindtap='chooseSE'>{{item}}</view>
@@ -67,10 +64,10 @@
     <view class="select-line-nav">口味</view>
     <view wx:if="listData[currentType].dishesList[currentIndex].tastes">
       <view style='display:flex'>
-        <view wx:for="{{listData[currentType].dishesList[currentIndex].tastes}}"
-          class="select-tab {{index==sizeIndex?'select-active':''}}"
+        <view wx:for="{{listData[currentType].dishesList[currentIndex].tastes}}" wx:key="unique"
+          class="select-tab {{ index==tasteIndex ?'select-active':''}}"
           data-type='0' data-index='{{index}}' bindtap='chooseSE'>
-          {{item}}
+          {{ item }}
         </view>
       </view>
     </view>
@@ -102,7 +99,7 @@
     <view class='cart-list-box' wx:for="{{cartList}}" wx:key="unique" style='border-bottom:1px #E3E3E3 solid'>
       <view class='list-info'>
         <view>{{item.name}}</view>
-        <view class='list-info-size'>{{item.detail}}</view>
+        <view wx:if="{{item.detail}}" class='list-info-size'>{{item.detail}}</view>
       </view>
       <view style='width:50%;padding:10px;'>
         <view style='float:right'>

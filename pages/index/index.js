@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
-const app = getApp()
+const app = getApp();
+const rxwx = require('../../utils/RxWX.js');
 
 Page({
   data: {
@@ -16,6 +17,13 @@ Page({
     duration: 1000
   },
   onLoad: function () {
+
+    rxwx.Rx.Observable.from(['a', 'b', 'c']).subscribe(name => {
+      console.log(name);
+    });
+    rxwx.setStorageSync('test-rxwx', '123456')
+      .catch((e) => console.error('RxWX发现错误'))
+      .subscribe((resp) => console.log(resp))
 
   },
   golist: function () {
